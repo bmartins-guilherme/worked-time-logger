@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import io.github.bmartins_guilherme.user_service.dto.HealthDto;
+import io.github.bmartins_guilherme.user_service.dto.HealthResponse;
 import tools.jackson.databind.json.JsonMapper;
 
 @WebMvcTest(HealthController.class)
@@ -25,7 +25,7 @@ public class HealthControllerTest {
     @Test
     void testGetHealth() throws Exception {
         ResultMatcher statusCode = MockMvcResultMatchers.status().isOk();
-        final String json = mapper.writeValueAsString(new HealthDto());
+        final String json = mapper.writeValueAsString(new HealthResponse());
         ResultMatcher content = MockMvcResultMatchers.content().json(json, JsonCompareMode.STRICT);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URI);
         requestBuilder.contentType(MediaType.APPLICATION_JSON);

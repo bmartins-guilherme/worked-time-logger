@@ -2,7 +2,7 @@ package io.github.bmartins_guilherme.user_service.swagger;
 
 import org.springframework.http.ResponseEntity;
 
-import io.github.bmartins_guilherme.user_service.dto.HealthDto;
+import io.github.bmartins_guilherme.user_service.dto.HealthResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,8 +14,8 @@ public interface HealthSwagger {
 
     @Operation(summary = "Get the API health", description = "Endpoint for checking if service is up",
         responses = { @ApiResponse(responseCode = "200", content = {
-            @Content(mediaType = "application/json", schema = @Schema(implementation = HealthDto.class))})})
-    ResponseEntity<HealthDto> getHealth();
+            @Content(mediaType = "application/json", schema = @Schema(implementation = HealthResponse.class))})})
+    ResponseEntity<HealthResponse> getHealth();
 
     
 }

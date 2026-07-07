@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import io.github.bmartins_guilherme.user_service.dto.HealthDto;
+import io.github.bmartins_guilherme.user_service.dto.HealthResponse;
 import io.github.bmartins_guilherme.user_service.swagger.HealthSwagger;
 
 @Controller
@@ -14,7 +14,7 @@ import io.github.bmartins_guilherme.user_service.swagger.HealthSwagger;
 public class HealthController implements HealthSwagger {
     @Override
     @GetMapping
-    public ResponseEntity<HealthDto> getHealth() {
-        return new ResponseEntity<HealthDto>(new HealthDto(), HttpStatusCode.valueOf(200));
+    public ResponseEntity<HealthResponse> getHealth() {
+        return new ResponseEntity<HealthResponse>(new HealthResponse(), HttpStatusCode.valueOf(200));
     }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Schema(description = "API Health")
-public class HealthDto {
+public class HealthResponse {
     @Schema(description = "Status of API health", example = "UP")
     private final String status = "UP";
 }
