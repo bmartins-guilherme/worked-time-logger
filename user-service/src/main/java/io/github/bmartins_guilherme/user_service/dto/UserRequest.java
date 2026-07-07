@@ -1,14 +1,16 @@
 package io.github.bmartins_guilherme.user_service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import lombok.Data;
 
 @Data
-@Schema(description = "Data Transfer Object used for creating a user")
+@Schema(name = "User Request", description = "Data Transfer Object used for creating a user")
 public class UserRequest {
-    @Schema(description = "A unique name used to identify the user", example = "richard.s.white")
+    @Schema(description = "A unique name used to identify the user", example = "richard.s.white", requiredMode = RequiredMode.REQUIRED)
     private String username;
-    @Schema(description = "A sequence of minimum 8 characters that contains number, lowercase, uppercase and special characters", example = "#r1Chard")
+    @Schema(description = "A sequence of minimum 8 characters that contains number, lowercase, uppercase and special characters", example = "#r1Chard",
+     requiredMode = RequiredMode.REQUIRED)
     private String password;
     private UserDetailsRequest userDetails;
 }
