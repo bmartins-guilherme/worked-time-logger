@@ -7,13 +7,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "tb_user_details")
 public class UserDetailsEntity {
     @Id
-    @Column(name = "user_detail")
+    @Column(name = "user_details_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;

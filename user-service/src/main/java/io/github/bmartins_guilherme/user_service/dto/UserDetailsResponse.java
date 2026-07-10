@@ -1,9 +1,13 @@
 package io.github.bmartins_guilherme.user_service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Schema(description = "Data Transfer Object used for returning stored details about the user")
 public class UserDetailsResponse {
     @Schema(description = "A unique identifier for the user details", example = "1")
