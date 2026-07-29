@@ -1,37 +1,38 @@
 package io.github.bmartins_guilherme.user_service.controller;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.test.json.JsonCompareMode;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
+import org.springframework.test.web.servlet.client.RestTestClient.ResponseSpec;
 
 import io.github.bmartins_guilherme.user_service.dto.HealthResponse;
 
-@WebMvcTest(HealthController.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureRestTestClient
 public class HealthControllerTest {
     private final String URI = "/api/v1/health";
-    private JsonMapper jsonMapper = new JsonMapper();
     @Autowired
-    private MockMvc mvc;
+    private RestTestClient restTestclient;
 
     @Test
     void testGetHealth() throws Exception {
+        HealthResponse expectedResponse = new HealthResponse();
+        // Prepare Request
+        ResponseSpec responseSpec = this.restTestclient.get().uri(URI).accept(MediaType.APPLICATION_JSON).exchange();
         // Assertions
-        final ResultMatcher statusCode = MockMvcResultMatchers.status().is(200);
-        final String json = jsonMapper.writeValueAsString(new HealthResponse());
-        final ResultMatcher content = MockMvcResultMatchers.content().json(json, JsonCompareMode.STRICT);
-        // Request
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(URI);
-        requestBuilder.accept(MediaType.APPLICATION_JSON);
-        mvc.perform(requestBuilder).andExpectAll(statusCode, content).andDo(MockMvcResultHandlers.print());
+        ParameterizedTypeReference<HealthResponse> typeReference = new ParameterizedTypeReference<HealthResponse> () {};
+        EntityExchangeResult<HealthResponse> result = responseSpec.returnResult(typeReference);
+        HttpStatusCode statusCode = result.getStatus();
+        HealthResponse response = result.getResponseBody();
+        Assertions.assertEquals(HttpStatusCode.valueOf(200), statusCode);
+        Assertions.assertEquals(expectedResponse, response);
     }
 }
