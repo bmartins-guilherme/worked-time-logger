@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Data Transfer Object used for returning the stored user data")
-public class UserResponse {
+public class CreateUserResponse {
     @Schema(description = "A unique identifier of the user", example = "1")
     private Integer id;
     @Schema(description = "A unique name used to identify the user", example = "richard.s.white")
