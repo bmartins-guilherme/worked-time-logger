@@ -1,6 +1,7 @@
 package io.github.bmartins_guilherme.user_service.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
@@ -48,5 +49,24 @@ public class UserControllerTest {
         // Assertions
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, result.getStatus());
         Assertions.assertEquals(expected, result.getResponseBody());
+    }
+
+    @Test
+    void createUser_WhenEmailHasInvalidFormat_ReturnBadRequest() throws Exception {
+        // Expectation
+        Map<String, String> expected = Map.of("userDetails.email", "Invalid email format.");
+        for (String email: List.of("richard.s.@gmail.com", "richard.s.whitegmail.com", "richard.s.white@.com")) {
+            // Prepare requests
+            UserDetailsRequest detailsRequest = new UserDetailsRequest("Richard Smith White", email);
+            CreateUserRequest userRequest = new CreateUserRequest("richard.s.white", "#r1Chard", detailsRequest);
+            String payload = jsonMapper.writeValueAsString(userRequest);
+            // Request
+            ResponseSpec responseSpec = restTestClient.post().uri(BASE_URI).contentType(MediaType.APPLICATION_JSON).body(payload).exchange();
+            ParameterizedTypeReference<Map<String, String>> typeReference = new ParameterizedTypeReference<Map<String, String>> () {};
+            EntityExchangeResult<Map<String, String>> result = responseSpec.returnResult(typeReference);
+            // Assertions
+            Assertions.assertEquals(HttpStatus.BAD_REQUEST, result.getStatus());
+            Assertions.assertEquals(expected, result.getResponseBody());
+        }
     }
 }
