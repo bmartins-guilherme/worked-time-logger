@@ -5,15 +5,14 @@ import static org.mockito.ArgumentMatchers.any;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import io.github.bmartins_guilherme.user_service.dto.UserDetailsRequest;
-import io.github.bmartins_guilherme.user_service.dto.UserDetailsResponse;
 import io.github.bmartins_guilherme.user_service.dto.CreateUserRequest;
 import io.github.bmartins_guilherme.user_service.dto.CreateUserResponse;
+import io.github.bmartins_guilherme.user_service.dto.UserDetailsRequest;
+import io.github.bmartins_guilherme.user_service.dto.UserDetailsResponse;
 import io.github.bmartins_guilherme.user_service.model.UserDetailsEntity;
 import io.github.bmartins_guilherme.user_service.model.UserEntity;
 import io.github.bmartins_guilherme.user_service.repository.UserRepository;
@@ -22,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 @SpringBootTest
 @RequiredArgsConstructor
 public class UserServiceTest {
-    private final ModelMapper mapper = new ModelMapper();
     @Autowired
     private UserService service;
     @MockitoBean

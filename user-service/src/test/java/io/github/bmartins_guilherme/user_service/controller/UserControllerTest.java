@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.client.RestTestClient.ResponseSpec;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import io.github.bmartins_guilherme.user_service.dto.CreateUserRequest;
-import io.github.bmartins_guilherme.user_service.dto.CreateUserResponse;
 import io.github.bmartins_guilherme.user_service.dto.UserDetailsRequest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
